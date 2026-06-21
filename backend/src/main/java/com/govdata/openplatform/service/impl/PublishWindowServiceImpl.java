@@ -37,6 +37,7 @@ public class PublishWindowServiceImpl implements PublishWindowService {
                 PublishWindow.PublishType.ROUTINE);
         window.setMaxDatasets(windowDTO.getMaxDatasets());
         window.setPublishedCount(0);
+        window.setRemark(windowDTO.getRemark());
 
         PublishWindow saved = windowRepository.save(window);
         return toDTO(saved);
@@ -61,6 +62,7 @@ public class PublishWindowServiceImpl implements PublishWindowService {
             window.setPublishType(PublishWindow.PublishType.valueOf(windowDTO.getPublishType()));
         }
         window.setMaxDatasets(windowDTO.getMaxDatasets());
+        window.setRemark(windowDTO.getRemark());
 
         PublishWindow saved = windowRepository.save(window);
         return toDTO(saved);
@@ -169,6 +171,7 @@ public class PublishWindowServiceImpl implements PublishWindowService {
                 .publishType(window.getPublishType() != null ? window.getPublishType().name() : null)
                 .maxDatasets(window.getMaxDatasets())
                 .publishedCount(window.getPublishedCount())
+                .remark(window.getRemark())
                 .createdAt(window.getCreatedAt())
                 .updatedAt(window.getUpdatedAt())
                 .build();

@@ -44,6 +44,9 @@ public class PublishWindow extends BaseEntity {
     @Column(name = "published_count")
     private Integer publishedCount = 0;
 
+    @Column(name = "remark", columnDefinition = "TEXT")
+    private String remark;
+
     public enum WindowStatus {
         PLANNED,
         ACTIVE,

@@ -22,6 +22,7 @@ public class PublishWindowDTO {
     private String publishType;
     private Integer maxDatasets;
     private Integer publishedCount;
+    private String remark;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
 }

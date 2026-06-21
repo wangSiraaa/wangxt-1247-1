@@ -213,6 +213,7 @@ export interface PublishWindow {
   id: number
   title: string
   description: string
+  remark: string
   windowStart: string
   windowEnd: string
   status: WindowStatus

@@ -179,6 +179,9 @@ const WindowManagement = () => {
           {record.description && (
             <span style={{ color: '#8c8c8c', fontSize: 12 }}>{record.description}</span>
           )}
+          {record.remark && (
+            <span style={{ color: '#fa8c16', fontSize: 12 }}>备注：{record.remark}</span>
+          )}
         </Space>
       ),
     },
@@ -339,6 +342,9 @@ const WindowManagement = () => {
           </Form.Item>
           <Form.Item name="description" label="窗口描述">
             <TextArea rows={2} placeholder="请输入窗口描述" />
+          </Form.Item>
+          <Form.Item name="remark" label="发布备注">
+            <TextArea rows={2} placeholder="请填写发布说明，如延后或提前发布的原因" />
           </Form.Item>
           <Form.Item
             name="timeRange"
