@@ -9,6 +9,7 @@ import com.govdata.openplatform.repository.DatasetRepository;
 import com.govdata.openplatform.service.DatasetService;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -18,6 +19,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class DatasetServiceImpl implements DatasetService {
@@ -244,7 +246,7 @@ public class DatasetServiceImpl implements DatasetService {
                 .department(dataset.getDepartment())
                 .dataSource(dataset.getDataSource())
                 .updateFrequency(dataset.getUpdateFrequency())
-                .status(dataset.getStatus().name())
+                .status(dataset.getStatus() != null ? dataset.getStatus().name() : null)
                 .currentVersion(dataset.getCurrentVersion())
                 .publishedVersion(dataset.getPublishedVersion())
                 .createdAt(dataset.getCreatedAt())

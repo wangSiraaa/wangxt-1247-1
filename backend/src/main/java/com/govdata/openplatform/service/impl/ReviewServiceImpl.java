@@ -2,8 +2,10 @@ package com.govdata.openplatform.service.impl;
 
 import com.govdata.openplatform.dto.ReviewRecordDTO;
 import com.govdata.openplatform.entity.Dataset;
+import com.govdata.openplatform.entity.DatasetField;
 import com.govdata.openplatform.entity.DatasetVersion;
 import com.govdata.openplatform.entity.ReviewRecord;
+import lombok.extern.slf4j.Slf4j;
 import com.govdata.openplatform.repository.DatasetRepository;
 import com.govdata.openplatform.repository.DatasetVersionRepository;
 import com.govdata.openplatform.repository.ReviewRecordRepository;
@@ -20,6 +22,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class ReviewServiceImpl implements ReviewService {
@@ -214,8 +217,8 @@ public class ReviewServiceImpl implements ReviewService {
                 .datasetId(record.getDataset().getId())
                 .versionId(record.getVersionId())
                 .versionNumber(record.getVersionNumber())
-                .reviewType(record.getReviewType().name())
-                .reviewStatus(record.getReviewStatus().name())
+                .reviewType(record.getReviewType() != null ? record.getReviewType().name() : null)
+                .reviewStatus(record.getReviewStatus() != null ? record.getReviewStatus().name() : null)
                 .reviewer(record.getReviewer())
                 .reviewOpinion(record.getReviewOpinion())
                 .reviewDate(record.getReviewDate())

@@ -6,6 +6,7 @@ import com.govdata.openplatform.repository.PublishWindowRepository;
 import com.govdata.openplatform.service.PublishWindowService;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -15,6 +16,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class PublishWindowServiceImpl implements PublishWindowService {
@@ -163,8 +165,8 @@ public class PublishWindowServiceImpl implements PublishWindowService {
                 .description(window.getDescription())
                 .windowStart(window.getWindowStart())
                 .windowEnd(window.getWindowEnd())
-                .status(window.getStatus().name())
-                .publishType(window.getPublishType().name())
+                .status(window.getStatus() != null ? window.getStatus().name() : null)
+                .publishType(window.getPublishType() != null ? window.getPublishType().name() : null)
                 .maxDatasets(window.getMaxDatasets())
                 .publishedCount(window.getPublishedCount())
                 .createdAt(window.getCreatedAt())

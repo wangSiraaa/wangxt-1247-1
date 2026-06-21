@@ -14,6 +14,7 @@ import com.govdata.openplatform.repository.VersionFieldRepository;
 import com.govdata.openplatform.service.DatasetVersionService;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -24,6 +25,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class DatasetVersionServiceImpl implements DatasetVersionService {
@@ -123,8 +125,11 @@ public class DatasetVersionServiceImpl implements DatasetVersionService {
             throw new IllegalStateException("Only draft versions can be submitted for review");
         }
 
-        long fieldCount = versionFieldRepository.countByVersionIdAndIsSensitiveTrue(versionId);
-        version.setFieldCount((int) versionFieldRepository.count());
+        long sensitiveCount = versionFieldRepository.countByVersionIdAndIsSensitiveTrue(versionId);
+        long allFieldCount = versionFieldRepository.findByVersionIdOrderBySortOrder(versionId).size();
+        log.info("Submitting version {} for review: {} total fields, {} sensitive fields",
+                versionId, allFieldCount, sensitiveCount);
+        version.setFieldCount((int) allFieldCount);
         version.setStatus(DatasetVersion.VersionStatus.SUBMITTED);
 
         Dataset dataset = version.getDataset();
@@ -284,7 +289,7 @@ public class DatasetVersionServiceImpl implements DatasetVersionService {
                 .versionNumber(version.getVersionNumber())
                 .versionName(version.getVersionName())
                 .changeDescription(version.getChangeDescription())
-                .status(version.getStatus().name())
+                .status(version.getStatus() != null ? version.getStatus().name() : null)
                 .isPublished(version.getIsPublished())
                 .publishedAt(version.getPublishedAt())
                 .publishWindowId(version.getPublishWindowId())
